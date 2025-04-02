@@ -3,6 +3,7 @@ import { Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { getGlobal } from "@/data/loaders";
+import { Footter } from "@/components/layout/Footer";
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
@@ -28,13 +29,12 @@ export default async function RootLayout({
 }>) {
   const { header, footer } = await loader();
 
-  console.dir(footer, { depth: null });
-
   return (
     <html lang="en">
       <body className={`${barlowCondensed.variable} antialiased font-main`}>
         <Header header={header} />
         {children}
+        <Footter footer={footer} />
       </body>
     </html>
   );
