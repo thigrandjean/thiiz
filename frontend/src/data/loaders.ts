@@ -34,8 +34,31 @@ const homeQuery = qs.stringify({
         },
         image: true,
       },
-    },
+    }
   },
+});
+
+const worksQuery = qs.stringify({
+  populate: {
+    featuredImage: {
+      fields: ["url", "alternativeText", "width", "height"]
+    },
+    category: {
+      fields: ["title", "description"]
+    },
+    content: {
+      on: {
+        "blocks.text-content": true,
+        "blocks.gallery": {
+          populate: {
+            images: {
+              fields: ["url", "alternativeText"]
+            }
+          }
+        }
+      }
+    }
+  }
 });
 
 export async function getGlobal() {
@@ -54,4 +77,14 @@ export async function getHome() {
   url.search = homeQuery;
 
   return await fetchAPI(url.href, { method: "GET" });
+}
+
+export async function getWorks() {
+  const path = "/api/works"
+  const url = new URL(path, BASE_URL)
+
+  url.search = worksQuery
+
+  return await fetchAPI(url.href, { method: "GET" })
+
 }

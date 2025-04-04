@@ -49,3 +49,15 @@ export type CategoriesProps = {
     categories: CategoryProps[];
   };
 };
+
+export type WorkProps = {
+  id: number
+  title: string
+  slug: string
+  excerpt: string
+  category: CategoryProps
+  featuredImage: StrapiImageProps
+  date: Date
+  text: string
+  gallery: StrapiImageProps
+}

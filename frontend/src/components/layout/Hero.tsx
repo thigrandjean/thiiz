@@ -8,7 +8,7 @@ type HeroSectionProps = {
 
 export function Hero({ hero }: HeroSectionProps) {
   return (
-    <section className="relative w-full flex flex-col gap-8 items-center px-4">
+    <section className="relative w-full flex flex-col items-center px-4 gap-8">
       <div className="max-w-6xl w-full mt-4 h-[70vh] overflow-hidden rounded-lg flex flex-col justify-end relative">
         <h1 className="whitespace-pre-wrap text-primary font-bold uppercase text-center text-5xl mb-10 relative z-10 [&_strong]:text-secondary">
           <ReactMarkdown>{hero.title}</ReactMarkdown>
@@ -23,7 +23,7 @@ export function Hero({ hero }: HeroSectionProps) {
           />
         </div>
       </div>
-      <div className="text-light-grey py-4 [&_strong]:text-primary [&_p]:mb-4 text-lg max-w-4xl">
+      <div className="text-light-grey py-4 [&_strong]:text-primary [&_p]:mb-4 text-xl max-w-4xl">
         <ReactMarkdown>{hero.bio}</ReactMarkdown>
       </div>
     </section>
