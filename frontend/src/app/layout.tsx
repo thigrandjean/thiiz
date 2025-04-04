@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 async function loader() {
   const { data } = await getGlobal();
   if (!data) throw new Error("Failed to fetch global setting");
-  return { header: data?.header, footer: data?.footer };
+  return { data };
 }
 
 export default async function RootLayout({
@@ -27,14 +27,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { header, footer } = await loader();
+  const { data } = await loader();
 
   return (
     <html lang="en">
       <body className={`${barlowCondensed.variable} antialiased font-main`}>
-        <Header header={header} />
+        <Header header={data.header} />
         {children}
-        <Footter footer={footer} />
+        <Footter footer={data.footer} />
       </body>
     </html>
   );

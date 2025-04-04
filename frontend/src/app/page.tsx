@@ -5,15 +5,14 @@ import { getHome } from "@/data/loaders";
 async function loader() {
   const { data } = await getHome();
   if (!data) throw new Error("Failed to fetch global setting");
-  return { hero: data?.hero, categoriesBox: data?.categoriesBox };
+  return { data };
 }
 export default async function Home() {
-  const { hero, categoriesBox } = await loader();
-
+  const { data } = await loader();
   return (
     <main className="flex flex-col gap-8">
-      <Hero hero={hero} />
-      <Categories categoriesBox={categoriesBox} />
+      <Hero hero={data.hero} />
+      <Categories {...data.categoriesBox} />
     </main>
   );
 }

@@ -1,90 +1,97 @@
-import qs from "qs";
-import { fetchAPI } from "@/utils/fetch-api";
 import { getStrapiURL } from "@/utils/get-strapi-url";
+import Strapi from "strapi-sdk-js";
+import { GlobalResponseProps, HomeResponseProps, WorksSlugProps } from "../../types/types";
 
 const BASE_URL = getStrapiURL();
 
-const globalQuery = qs.stringify({
-  populate: {
-    header: {
-      populate: {
-        link: true,
-      },
-    },
-    footer: {
-      populate: {
-        link: true,
-        socialLinks: true,
-      },
-    },
-  },
-});
+const strapi = new Strapi({ url: BASE_URL })
 
-const homeQuery = qs.stringify({
-  populate: {
-    hero: {
-      populate: {
-        image: true,
-      },
-    },
-    categoriesBox: {
-      populate: {
-        categories: {
-          fields: ["title", "description"],
+
+
+export async function getGlobal() {
+  const global = await strapi.find("global", {
+    populate: {
+      header: {
+        populate: {
+          link: true,
         },
-        image: true,
       },
-    }
-  },
-});
+      footer: {
+        populate: {
+          link: true,
+          socialLinks: true,
+        },
+      },
+    },
+  }) as unknown as GlobalResponseProps;
+  return global
+}
 
-const worksQuery = qs.stringify({
-  populate: {
-    featuredImage: {
-      fields: ["url", "alternativeText", "width", "height"]
+export async function getHome() {
+  const home = await strapi.find("home", {
+
+    populate: {
+      hero: {
+        populate: {
+          image: true,
+        },
+      },
+      categoriesBox: {
+        populate: {
+          categories: {
+            fields: ["title", "description"],
+          },
+          image: true,
+        },
+      }
     },
-    category: {
-      fields: ["title", "description"]
+  }) as unknown as HomeResponseProps
+  return home
+}
+
+export async function getWorks(quantity: number) {
+  const works = await strapi.find("works", {
+    pagination: {
+      start: 0,
+      limit: quantity
     },
-    content: {
-      on: {
-        "blocks.text-content": true,
-        "blocks.gallery": {
-          populate: {
-            images: {
-              fields: ["url", "alternativeText"]
+    populate: {
+      featuredImage: {
+        fields: ["url", "alternativeText", "width", "height"]
+      },
+      category: {
+        fields: ["title", "description"]
+      },
+      content: {
+        on: {
+          "blocks.text-content": true,
+          "blocks.gallery": {
+            populate: {
+              images: {
+                fields: ["url", "alternativeText"]
+              }
             }
           }
         }
       }
     }
-  }
-});
-
-export async function getGlobal() {
-  const path = "/api/global";
-  const url = new URL(path, BASE_URL);
-
-  url.search = globalQuery;
-
-  return await fetchAPI(url.href, { method: "GET" });
+  })
+  return works
 }
 
-export async function getHome() {
-  const path = "/api/home";
-  const url = new URL(path, BASE_URL);
-
-  url.search = homeQuery;
-
-  return await fetchAPI(url.href, { method: "GET" });
+export async function getWorksBySlug(slug: string) {
+  const work = await strapi.find("works", {
+    fields: ["title"],
+    filters: {
+      slug: { $eq: slug },
+    },
+  })
+  return work
 }
 
-export async function getWorks() {
-  const path = "/api/works"
-  const url = new URL(path, BASE_URL)
-
-  url.search = worksQuery
-
-  return await fetchAPI(url.href, { method: "GET" })
-
+export async function getAllWorksSlugs() {
+  const works = await strapi.find("works", {
+    fields: ["slug"],
+  }) as unknown as WorksSlugProps
+  return works
 }

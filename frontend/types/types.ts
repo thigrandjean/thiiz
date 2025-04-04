@@ -14,9 +14,7 @@ export type CtaLinkProps = {
 };
 
 export type HeaderProps = {
-  header: {
-    link: CtaLinkProps;
-  };
+  link: CtaLinkProps;
 };
 
 export type SocialLinksProps = {
@@ -25,11 +23,20 @@ export type SocialLinksProps = {
 };
 
 export type FooterProps = {
-  footer: {
-    link: CtaLinkProps;
-    socialLinks: SocialLinksProps[];
-  };
+  link: CtaLinkProps;
+  socialLinks: SocialLinksProps[];
 };
+
+export type GlobalProps = {
+  title: string
+  decription: string
+  header: HeaderProps
+  footer: FooterProps
+}
+
+export type GlobalResponseProps = {
+  data: GlobalProps
+}
 
 export type HeroProps = {
   title: string;
@@ -43,12 +50,21 @@ export type CategoryProps = {
   description: string;
 };
 
-export type CategoriesProps = {
-  categoriesBox: {
-    image: StrapiImageProps;
-    categories: CategoryProps[];
-  };
-};
+export type CategoriesBoxProps = {
+  image: StrapiImageProps
+  categories: CategoryProps[]
+}
+
+export type HomeProps = {
+  hero: HeroProps
+  categoriesBox: CategoriesBoxProps
+}
+
+export type HomeResponseProps = {
+  data: HomeProps
+}
+
+
 
 export type WorkProps = {
   id: number
@@ -60,4 +76,8 @@ export type WorkProps = {
   date: Date
   text: string
   gallery: StrapiImageProps
+}
+
+export type WorksSlugProps = {
+  data: 
 }

@@ -3,7 +3,11 @@ import { LinkCta } from "../shared/CtaLink";
 import { Logo } from "../shared/Logo";
 import { SocialLink } from "../shared/SocialLink";
 
-export function Footter({ footer }: FooterProps) {
+type FooterComponentProps = {
+  footer: FooterProps
+}
+
+export function Footter({ footer }: FooterComponentProps) {
   return (
     <footer className="flex flex-col items-center py-8 gap-8">
       <LinkCta
