@@ -6,12 +6,12 @@ import { Send } from "lucide-react";
 export type LinkCtaVariantProps = VariantProps<typeof ctaLinkVariants>;
 
 const ctaLinkVariants = cva(
-  "rounded-md px-3 py-1.5 flex items-center uppercase justify-center gap-2",
+  "rounded-md px-3 py-1.5 flex items-center uppercase justify-center gap-2 transition-all hover:scale-105",
   {
     variants: {
       intent: {
-        primary: "bg-primary text-dark-grey",
-        outline: "border border-primary text-primary",
+        primary: "bg-primary text-dark-grey  hover:bg-cyan",
+        outline: "border border-primary text-primary hover:text-dark-grey  hover:bg-primary",
       },
     },
   },

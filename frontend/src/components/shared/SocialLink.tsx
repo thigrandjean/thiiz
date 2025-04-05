@@ -25,7 +25,7 @@ export function SocialLink({ item }: SociaIconProps) {
 
   return (
     <a
-      className="bg-primary flex items-center justify-center p-2 rounded-full text-dark-grey hover:bg-magenta hover:scale-110 hover:text-light-grey transition-all"
+      className="bg-primary flex items-center justify-center p-2 rounded-full text-dark-grey hover:bg-cyan hover:scale-110  transition-all"
       href={item.url}
       target="_blank"
     >
