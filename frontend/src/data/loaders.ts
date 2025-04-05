@@ -62,18 +62,6 @@ export async function getWorks(quantity: number) {
       category: {
         fields: ["title", "description"]
       },
-      content: {
-        on: {
-          "blocks.text-content": true,
-          "blocks.gallery": {
-            populate: {
-              images: {
-                fields: ["url", "alternativeText"]
-              }
-            }
-          }
-        }
-      }
     }
   })
   return works
@@ -81,11 +69,29 @@ export async function getWorks(quantity: number) {
 
 export async function getWorksBySlug(slug: string) {
   const work = await strapi.find("works", {
-    fields: ["title"],
+    populate: {
+      featuredImage: {
+        fields: ["url", "alternativeText", "width", "height"]
+      },
+      content: {
+        on: {
+          "blocks.text-content": true,
+          "blocks.gallery": {
+            populate: {
+              images: {
+                fields: ["url", "alternativeText", "width", "height"]
+              }
+            }
+          }
+        }
+      }
+
+    },
     filters: {
       slug: { $eq: slug },
     },
-  })
+  }
+  )
   return work
 }
 

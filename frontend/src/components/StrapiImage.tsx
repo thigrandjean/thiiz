@@ -5,19 +5,23 @@ interface StrapiImageProps {
   src: string;
   alt: string;
   className?: string;
+  width: number
+  height: number
   [key: string]: string | number | boolean | undefined;
 }
 
 export function StrapiImage({
   src,
   alt,
+  width,
+  height,
   className,
   ...rest
 }: Readonly<StrapiImageProps>) {
   const imageUrl = getStrapiMedia(src);
   if (!imageUrl) return null;
 
-  return <Image src={imageUrl} alt={alt} className={className} {...rest} />;
+  return <Image src={imageUrl} alt={alt} className={className} width={width} height={height} {...rest} />;
 }
 
 export function getStrapiMedia(url: string | null) {

@@ -3,7 +3,7 @@ export type StrapiImageProps = {
   url: string;
   width: number;
   height: number;
-  alternatioveText: string;
+  alternativeText: string;
 };
 
 export type CtaLinkProps = {
@@ -65,7 +65,9 @@ export type HomeResponseProps = {
   data: HomeProps
 }
 
-
+export type WorksSlugProps = {
+  slug: string
+}
 
 export type WorkProps = {
   id: number
@@ -75,10 +77,32 @@ export type WorkProps = {
   category: CategoryProps
   featuredImage: StrapiImageProps
   date: Date
-  text: string
-  gallery: StrapiImageProps
+  content: WorkBlock[]
 }
 
-export type WorksSlugProps = {
-  data: 
+type WorkComponentType =
+  | "blocks.text-content"
+  | "blocks.gallery"
+
+
+interface Base<T extends WorkComponentType, D extends object = Record<string, unknown>> {
+  id: number;
+  __component?: T;
+  documentId?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  data?: D;
 }
+
+export type WorkBlock = WorkContentTextBlock | WorkGalleryBlock
+
+export type WorkContentTextBlock = Base<"blocks.text-content"> & {
+  text: string
+}
+
+export type WorkGalleryBlock = Base<"blocks.gallery"> & {
+  images: StrapiImageProps[]
+}
+
+export type WorkBloixk = WorkComponentType | WorkGalleryBlock

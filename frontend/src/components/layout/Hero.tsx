@@ -19,7 +19,7 @@ export function Hero({ hero }: HeroSectionProps) {
             src={hero.image.url}
             width={hero.image.width}
             height={hero.image.height}
-            alt={`${hero.image.alternatioveText} | "Hero Image"`}
+            alt={`${hero.image.alternativeText} | "Hero Image"`}
           />
         </div>
       </div>

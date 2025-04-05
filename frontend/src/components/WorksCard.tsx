@@ -36,7 +36,7 @@ export function WorksCard({ image, title, excerpt, slug, category }: WorksCardPr
           <StrapiImage
             className='object-cover w-full h-full group-hover:scale-105 transition-all duration-500'
             src={image.url}
-            alt={`${image.alternatioveText} | "Hero Image"`}
+            alt={`${image.alternativeText} | "Hero Image"`}
             width={image.width}
             height={image.height} />
         </div>

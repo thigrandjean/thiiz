@@ -1,6 +1,8 @@
 import { getAllWorksSlugs, getWorksBySlug } from "@/data/loaders"
 import { notFound } from "next/navigation"
 import { WorkProps } from "../../../types/types";
+import { StrapiImage } from "@/components/StrapiImage";
+import { WorksBlockRenderer } from "@/components/WorksBlockRenderer";
 
 export async function generateStaticParams() {
   const works = await getAllWorksSlugs();
@@ -24,9 +26,22 @@ export default async function SingleWork({ params }: WorkPageProps) {
   const data = await getWorksBySlug(slug) as WorkResponse
   const work = data?.data[0]
 
+  console.dir(work, { depth: null })
+
   if (!work) notFound()
 
-  return (<>
-    <h1>{work.title}</h1>
-  </>)
+  return (
+    <article>
+      <div>
+        <StrapiImage
+          src={work.featuredImage.url}
+          alt={`${work.featuredImage.alternativeText} | "Article featured Imge"`}
+          width={work.featuredImage.width}
+          height={work.featuredImage.height}
+        />
+      </div>
+      <h1 className="text-primary font-bold uppercase text-4xl">{work.title}</h1>
+      <WorksBlockRenderer blocks={work.content} />
+    </article>
+  )
 }
