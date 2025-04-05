@@ -43,10 +43,11 @@ export type HeroProps = {
   bio: string;
   image: StrapiImageProps;
 };
+export type CategoriesList = "3D" | "Motion" | "Design" | "Web"
 
 export type CategoryProps = {
   id?: number;
-  title: string;
+  title: CategoriesList
   description: string;
 };
 

@@ -4,6 +4,7 @@ import { CtaLinkProps } from "../../../types/types";
 import { Send } from "lucide-react";
 
 export type LinkCtaVariantProps = VariantProps<typeof ctaLinkVariants>;
+
 const ctaLinkVariants = cva(
   "rounded-md px-3 py-1.5 flex items-center uppercase justify-center gap-2",
   {
